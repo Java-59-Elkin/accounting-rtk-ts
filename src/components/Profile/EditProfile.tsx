@@ -1,4 +1,6 @@
 import {useState} from "react";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {updateUser} from "../../features/api/accountApi.ts";
 
 interface Props {
     close: () => void;
@@ -7,11 +9,10 @@ interface Props {
 const EditProfile = ({close}: Props) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-
+    const dispatch = useAppDispatch();
 
     const handleClickSave = () => {
-        //To DO handleClickSave
-        alert("Save profile data");
+        dispatch(updateUser({firstName, lastName}));
         close();
     }
 
@@ -37,10 +38,10 @@ const EditProfile = ({close}: Props) => {
                 />
             </label>
             <button onClick={handleClickSave}>Save and Close</button>
-            <button onClick={close}>Close without Saving</button>
+            <button onClick={close}>Close without Save</button>
             <button onClick={handleClickClear}>Clear</button>
         </>
-    )
-}
+    );
+};
 
 export default EditProfile;
